@@ -1,4 +1,4 @@
-package org.example
+package br.com.joao.aluragames.models
 
 data class Game(
     private val title: String,

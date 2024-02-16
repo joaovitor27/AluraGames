@@ -1,4 +1,4 @@
-package org.example
+package br.com.joao.aluragames.models
 
 data class InfoApiShark(
     val title: String,

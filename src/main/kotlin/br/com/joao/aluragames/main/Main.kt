@@ -1,22 +1,15 @@
-package org.example
+package br.com.joao.aluragames.main
 
-import com.google.gson.Gson
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
+import br.com.joao.aluragames.models.Game
+import br.com.joao.aluragames.services.ApiSharkService
 
 fun main() {
     val read = java.util.Scanner(System.`in`)
-    val body = HttpClient.newHttpClient().send(
-        HttpRequest.newBuilder()
-            .uri(URI.create("https://www.cheapshark.com/api/1.0/games?id=15"))
-            .build(),
-        HttpResponse.BodyHandlers.ofString()
-    ).body()
-
+    println("Digite o id do jogo:")
+    val id = read.nextLine()
+    val apiShark = ApiSharkService(id)
     runCatching {
-        Gson().fromJson(body, InfoGame::class.java)
+        apiShark.deserialize(apiShark.get())
     }.onFailure {
         println("Error: ${it.message}")
         return
@@ -31,5 +24,4 @@ fun main() {
             println(Game(infoApiShark.info.title, infoApiShark.info.thumb, "Sem descrição"))
         }
     }
-
 }
