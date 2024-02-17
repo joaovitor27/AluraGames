@@ -1,54 +1,59 @@
 package br.com.joao.aluragames.services
 
-class HttpService (
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
+
+class HttpService(
     private val url: String
-){
+) {
     fun get(): String {
-        return java.net.http.HttpClient.newHttpClient().send(
-            java.net.http.HttpRequest.newBuilder()
-                .uri(java.net.URI.create(url))
+        return HttpClient.newHttpClient().send(
+            HttpRequest.newBuilder()
+                .uri(URI.create(url))
                 .build(),
-            java.net.http.HttpResponse.BodyHandlers.ofString()
+            HttpResponse.BodyHandlers.ofString()
         ).body()
     }
 
     fun post(body: Any): String {
-        return java.net.http.HttpClient.newHttpClient().send(
-            java.net.http.HttpRequest.newBuilder()
-                .uri(java.net.URI.create(url))
-                .POST(java.net.http.HttpRequest.BodyPublishers.ofString(body.toString()))
+        return HttpClient.newHttpClient().send(
+            HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
                 .build(),
-            java.net.http.HttpResponse.BodyHandlers.ofString()
+            HttpResponse.BodyHandlers.ofString()
         ).body()
     }
 
     fun put(): String {
-        return java.net.http.HttpClient.newHttpClient().send(
-            java.net.http.HttpRequest.newBuilder()
-                .uri(java.net.URI.create(url))
-                .PUT(java.net.http.HttpRequest.BodyPublishers.ofString(""))
+        return HttpClient.newHttpClient().send(
+            HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .PUT(HttpRequest.BodyPublishers.ofString(""))
                 .build(),
-            java.net.http.HttpResponse.BodyHandlers.ofString()
+            HttpResponse.BodyHandlers.ofString()
         ).body()
     }
 
     fun delete(): String {
-        return java.net.http.HttpClient.newHttpClient().send(
-            java.net.http.HttpRequest.newBuilder()
-                .uri(java.net.URI.create(url))
+        return HttpClient.newHttpClient().send(
+            HttpRequest.newBuilder()
+                .uri(URI.create(url))
                 .DELETE()
                 .build(),
-            java.net.http.HttpResponse.BodyHandlers.ofString()
+            HttpResponse.BodyHandlers.ofString()
         ).body()
     }
 
     fun patch(): String {
-        return java.net.http.HttpClient.newHttpClient().send(
-            java.net.http.HttpRequest.newBuilder()
-                .uri(java.net.URI.create(url))
-                .method("PATCH", java.net.http.HttpRequest.BodyPublishers.ofString(""))
+        return HttpClient.newHttpClient().send(
+            HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(""))
                 .build(),
-            java.net.http.HttpResponse.BodyHandlers.ofString()
+            HttpResponse.BodyHandlers.ofString()
         ).body()
     }
 }
