@@ -5,9 +5,9 @@ import kotlin.test.*
 class GamerTest {
     @Test
     fun testToString() {
-        val gamer = Gamer("João", "joao@gmail.com", "123456")
+        val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
         assertEquals(
-            "Gamer(name=João, email=joao@gmail.com, password=123456, birthData=null, phone=null, address=null, city=null, state=null, country=null, zipCode=null)",
+            "Gamer(name=João, email=joao@gmail.com, user=joao, birthData=01/01/2000, phone=null, address=null, city=null, state=null, country=null, zipCode=null)",
             gamer.toString()
         )
     }
@@ -17,7 +17,7 @@ class GamerTest {
         val gamer = Gamer(
             "João",
             "joao@gmail.com",
-            "123456",
+            "joao",
             "01/01/2000",
             "(11) 99999-9999",
             "Rua 1",
@@ -27,14 +27,14 @@ class GamerTest {
             "00000-000"
         )
         assertEquals(
-            "Gamer(name=João, email=joao@gmail.com, password=123456, birthData=01/01/2000, phone=(11) 99999-9999, address=Rua 1, city=São Paulo, state=SP, country=Brasil, zipCode=00000-000)",
+            "Gamer(name=João, email=joao@gmail.com, user=joao, birthData=01/01/2000, phone=(11) 99999-9999, address=Rua 1, city=São Paulo, state=SP, country=Brasil, zipCode=00000-000)",
             gamer.toString()
         )
     }
 
     @Test
     fun testCreateIdInternal() {
-        val gamer = Gamer("João", "joao@gmail.com", "123456")
+        val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
         gamer.getIdInternal()?.let {
             assertTrue(it.contains("#joao"))
         }

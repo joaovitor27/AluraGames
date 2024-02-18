@@ -3,10 +3,11 @@ package br.com.joao.aluragames.services
 import br.com.joao.aluragames.models.InfoGame
 import com.google.gson.Gson
 
-class ApiSharkService (id : String) {
-    private val url = "https://www.cheapshark.com/api/1.0/games?id=$id"
-    private val httpService = HttpService(url)
-
+class ApiSharkService(
+    id: String,
+    private val url: String = "https://www.cheapshark.com/api/1.0/games?id=$id",
+    private val httpService: HttpService = HttpService(url),
+) {
     fun get(): String {
         return httpService.get()
     }
