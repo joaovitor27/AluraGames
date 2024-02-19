@@ -2,29 +2,29 @@ package br.com.joao.aluragames.main
 
 import br.com.joao.aluragames.models.Game
 import br.com.joao.aluragames.models.Gamer
-import br.com.joao.aluragames.services.ApiSharkService
+import br.com.joao.aluragames.services.ApiGameService
 
 fun main() {
     val read = java.util.Scanner(System.`in`)
     val gamer = Gamer.createGamer(read)
     do {
         println("Digite o id do jogo:")
-        val id = read.nextLine()
-        val apiShark = ApiSharkService(id)
+        val id = read.nextInt()
+        val gamesApi = ApiGameService()
         runCatching {
-            apiShark.deserialize(apiShark.get())
+            gamesApi.getGame(id)
         }.onFailure {
             println("Jogo não encontrado!")
-        }.onSuccess { infoApiShark ->
+        }.onSuccess { infoApi ->
             println("Deseja adicionar a descrição do jogo? (s/n)")
             val option = read.nextLine()
             val game: Game?
             if (option.equals("s", ignoreCase = true)) {
                 println("Digite a descrição do jogo:")
                 val description = read.nextLine()
-                game = Game(infoApiShark.info.title, infoApiShark.info.thumb, description)
+                game = Game(infoApi.getTitle(), infoApi.getThumb(), description, infoApi.getPrice())
             } else {
-                game = Game(infoApiShark.info.title, infoApiShark.info.thumb, "Sem descrição")
+                game = Game(infoApi.getTitle(), infoApi.getThumb(), infoApi.getDescription(), infoApi.getPrice())
             }
             gamer.addGame(game)
         }

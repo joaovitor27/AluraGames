@@ -5,10 +5,10 @@ import java.util.*
 import kotlin.random.Random
 
 data class Gamer(
-    var name: String,
-    var email: String,
-    var user: String,
-    var birthData: String,
+    private var name: String,
+    private var email: String,
+    private var user: String,
+    private var birthData: String,
 ) {
     private var phone: String? = null
     private var address: String? = null
@@ -68,6 +68,10 @@ data class Gamer(
         return games
     }
 
+    fun getName(): String {
+        return name
+    }
+
     companion object {
         fun createGamer(read: Scanner): Gamer {
             println("Bem vindo ao Alura Games!\n")
@@ -101,6 +105,9 @@ data class Gamer(
                 return Gamer(name, email, user, birthData, phone, address, city, state, country, zipCode)
             }
         }
+    }
 
+    fun rentGame(game: Game): Rental {
+        return Rental(this, game)
     }
 }

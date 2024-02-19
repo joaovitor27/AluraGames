@@ -40,4 +40,21 @@ class GamerTest {
         }
         assertNotNull(gamer.getIdInternal())
     }
+
+    @Test
+    fun testRentGame(){
+        val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
+        val game = Game("The Last of Us", "last_of_us.jpg", "Jogo de ação e aventura", 100.0)
+        val rental = gamer.rentGame(game)
+        assertEquals("Aluguel de The Last of Us para João", rental.toString())
+    }
+
+    @Test
+    fun testRentGameWithGamerAndGame() {
+        val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
+        val game = Game("The Last of Us", "last_of_us.jpg", "Jogo de ação e aventura", 100.0)
+        val rental = gamer.rentGame(game)
+        assertEquals(gamer, rental.getGamer())
+        assertEquals(game, rental.getGame())
+    }
 }
