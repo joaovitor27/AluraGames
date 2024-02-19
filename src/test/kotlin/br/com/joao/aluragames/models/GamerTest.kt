@@ -42,19 +42,41 @@ class GamerTest {
     }
 
     @Test
-    fun testRentGame(){
+    fun testRentGame() {
         val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
         val game = Game("The Last of Us", "last_of_us.jpg", "Jogo de ação e aventura", 100.0)
-        val rental = gamer.rentGame(game)
-        assertEquals("Aluguel de The Last of Us para João", rental.toString())
+        val rental = gamer.rentGame(game, 7)
+        assertEquals("Aluguel de The Last of Us para João no valor de R$ 700.0", rental.toString())
     }
 
     @Test
     fun testRentGameWithGamerAndGame() {
         val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
         val game = Game("The Last of Us", "last_of_us.jpg", "Jogo de ação e aventura", 100.0)
-        val rental = gamer.rentGame(game)
+        val rental = gamer.rentGame(game, 7)
         assertEquals(gamer, rental.getGamer())
         assertEquals(game, rental.getGame())
+    }
+
+    @Test
+    fun testAddGame() {
+        val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
+        val game = Game("The Last of Us", "last_of_us.jpg", "Jogo de ação e aventura", 100.0)
+        val game2 = Game("The Last of Us 2", "last_of_us_2.jpg", "Jogo de ação e aventura", 150.0)
+        gamer.addGame(game)
+        gamer.addGame(game2)
+        assertEquals(2, gamer.getGames().size)
+    }
+
+    @Test
+    fun testRentals() {
+        val gamer = Gamer("João", "joao@gmail.com", "joao", "01/01/2000")
+        val game = Game("The Last of Us", "last_of_us.jpg", "Jogo de ação e aventura", 100.0)
+        val game2 = Game("The Last of Us 2", "last_of_us_2.jpg", "Jogo de ação e aventura", 150.0)
+        gamer.rentGame(game, 7)
+        gamer.rentGame(game2, 7)
+        assertEquals(2, gamer.getRentals().size)
+        assertEquals(game, gamer.getRentals()[0].getGame())
+        assertEquals(game2, gamer.getRentals()[1].getGame())
     }
 }

@@ -1,6 +1,7 @@
 package br.com.joao.aluragames.models
 
 import br.com.joao.aluragames.utils.removeAccents
+import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random
 
@@ -18,6 +19,7 @@ data class Gamer(
     private var zipCode: String? = null
     private var idInternal: String? = null
     private var games: MutableList<Game> = mutableListOf()
+    private var rentals: MutableList<Rental> = mutableListOf()
 
     constructor(
         name: String,
@@ -68,6 +70,10 @@ data class Gamer(
         return games
     }
 
+    fun getRentals(): List<Rental> {
+        return rentals
+    }
+
     fun getName(): String {
         return name
     }
@@ -107,7 +113,9 @@ data class Gamer(
         }
     }
 
-    fun rentGame(game: Game): Rental {
-        return Rental(this, game)
+    fun rentGame(game: Game, days: Int): Rental {
+        val rental = Rental(this, game, LocalDate.now().plusDays(days.toLong()))
+        rentals.add(rental)
+        return rental
     }
 }
